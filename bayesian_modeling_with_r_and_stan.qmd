@@ -20,6 +20,8 @@ library(rstan)
 library(posterior)
 library(bayesplot)
 library(triangle)
+library(lmerTest)
+library(emmeans)
 
 options(mc.cores = parallel::detectCores())
 
@@ -191,7 +193,7 @@ tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = 
   )
 ```
 
-### Stan
+### stan
 
 ```{r}
 N <- 18
@@ -256,6 +258,75 @@ summary(as_draws(bin_beta_fit))
 
 ```{r}
 mcmc_combo(bin_beta_fit)
+```
+
+## Real data
+
+### Frequentist
+
+```{r}
+sleepstudy
+```
+
+```{r}
+lm(Reaction ~ Days, data = sleepstudy) %>% emmeans("Days")
+```
+
+```{r}
+lm(Reaction ~ Days + Subject, data = sleepstudy) %>% emmeans("Days")
+```
+
+```{r}
+lm(Reaction ~ Days * Subject, data = sleepstudy) %>% emmeans("Days")
+```
+
+```{r}
+lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy) %>% emmeans("Days")
+```
+
+### Bayesian
+
+#### rstanarm
+
+```{r}
+#| output: false
+fit <- rstanarm::stan_glm(Reaction ~ Days, data = sleepstudy)
+```
+
+```{r}
+emmeans(fit, "Days")
+```
+
+```{r}
+#| output: false
+fit <- rstanarm::stan_glm(Reaction ~ Days + Subject, data = sleepstudy)
+```
+
+```{r}
+emmeans(fit, "Days")
+```
+
+```{r}
+#| output: false
+fit <- rstanarm::stan_glm(Reaction ~ Days * Subject, data = sleepstudy)
+```
+
+```{r}
+emmeans(fit, "Days")
+```
+
+```{r}
+#| output: false
+fit <- rstanarm::stan_glmer(Reaction ~ Days + (Days | Subject), data = sleepstudy)
+```
+
+```{r}
+emmeans(fit, "Days")
+```
+
+#### stan
+
+```{stan output.var="real_data_mod"}
 ```
 
 ## Print environment

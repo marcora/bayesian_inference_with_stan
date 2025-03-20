@@ -120,6 +120,11 @@ window.Quarto = {
   <li><a href="#grid-approximation" id="toc-grid-approximation" class="nav-link" data-scroll-target="#grid-approximation">Grid approximation</a></li>
   <li><a href="#stan" id="toc-stan" class="nav-link" data-scroll-target="#stan">Stan</a></li>
   </ul></li>
+  <li><a href="#real-data" id="toc-real-data" class="nav-link" data-scroll-target="#real-data">Real data</a>
+  <ul class="collapse">
+  <li><a href="#frequentist" id="toc-frequentist" class="nav-link" data-scroll-target="#frequentist">Frequentist</a></li>
+  <li><a href="#bayesian" id="toc-bayesian" class="nav-link" data-scroll-target="#bayesian">Bayesian</a></li>
+  </ul></li>
   <li><a href="#print-environment" id="toc-print-environment" class="nav-link" data-scroll-target="#print-environment">Print environment</a></li>
   </ul>
 </nav>
@@ -158,15 +163,17 @@ window.Quarto = {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(posterior)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(triangle)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">mc.cores =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>())</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmerTest)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(emmeans)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rstan_options</span>(<span class="at">auto_write =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rstan_options</span>(<span class="at">threads_per_chain =</span> <span class="dv">1</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">mc.cores =</span> parallel<span class="sc">::</span><span class="fu">detectCores</span>())</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">rstan_options</span>(<span class="at">auto_write =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">rstan_options</span>(<span class="at">threads_per_chain =</span> <span class="dv">1</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">set.rseed</span>(<span class="dv">666</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">set.rseed</span>(<span class="dv">666</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="bayes-theorem" class="level2">
@@ -455,10 +462,137 @@ $y
 </div>
 </section>
 </section>
+<section id="real-data" class="level2">
+<h2 class="anchored" data-anchor-id="real-data">Real data</h2>
+<section id="frequentist" class="level3">
+<h3 class="anchored" data-anchor-id="frequentist">Frequentist</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sleepstudy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div data-pagedtable="false">
+  <script data-pagedtable-source="" type="application/json">
+{"columns":[{"label":["Reaction"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["Days"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["Subject"],"name":[3],"type":["fct"],"align":["left"]}],"data":[{"1":"249.6","2":"0","3":"308"},{"1":"258.7","2":"1","3":"308"},{"1":"250.8","2":"2","3":"308"},{"1":"321.4","2":"3","3":"308"},{"1":"356.9","2":"4","3":"308"},{"1":"414.7","2":"5","3":"308"},{"1":"382.2","2":"6","3":"308"},{"1":"290.1","2":"7","3":"308"},{"1":"430.6","2":"8","3":"308"},{"1":"466.4","2":"9","3":"308"},{"1":"222.7","2":"0","3":"309"},{"1":"205.3","2":"1","3":"309"},{"1":"203.0","2":"2","3":"309"},{"1":"204.7","2":"3","3":"309"},{"1":"207.7","2":"4","3":"309"},{"1":"216.0","2":"5","3":"309"},{"1":"213.6","2":"6","3":"309"},{"1":"217.7","2":"7","3":"309"},{"1":"224.3","2":"8","3":"309"},{"1":"237.3","2":"9","3":"309"},{"1":"199.1","2":"0","3":"310"},{"1":"194.3","2":"1","3":"310"},{"1":"234.3","2":"2","3":"310"},{"1":"232.8","2":"3","3":"310"},{"1":"229.3","2":"4","3":"310"},{"1":"220.5","2":"5","3":"310"},{"1":"235.4","2":"6","3":"310"},{"1":"255.8","2":"7","3":"310"},{"1":"261.0","2":"8","3":"310"},{"1":"247.5","2":"9","3":"310"},{"1":"321.5","2":"0","3":"330"},{"1":"300.4","2":"1","3":"330"},{"1":"283.9","2":"2","3":"330"},{"1":"285.1","2":"3","3":"330"},{"1":"285.8","2":"4","3":"330"},{"1":"297.6","2":"5","3":"330"},{"1":"280.2","2":"6","3":"330"},{"1":"318.3","2":"7","3":"330"},{"1":"305.3","2":"8","3":"330"},{"1":"354.0","2":"9","3":"330"},{"1":"287.6","2":"0","3":"331"},{"1":"285.0","2":"1","3":"331"},{"1":"301.8","2":"2","3":"331"},{"1":"320.1","2":"3","3":"331"},{"1":"316.3","2":"4","3":"331"},{"1":"293.3","2":"5","3":"331"},{"1":"290.1","2":"6","3":"331"},{"1":"334.8","2":"7","3":"331"},{"1":"293.7","2":"8","3":"331"},{"1":"371.6","2":"9","3":"331"},{"1":"234.9","2":"0","3":"332"},{"1":"242.8","2":"1","3":"332"},{"1":"273.0","2":"2","3":"332"},{"1":"309.8","2":"3","3":"332"},{"1":"317.5","2":"4","3":"332"},{"1":"310.0","2":"5","3":"332"},{"1":"454.2","2":"6","3":"332"},{"1":"346.8","2":"7","3":"332"},{"1":"330.3","2":"8","3":"332"},{"1":"253.9","2":"9","3":"332"},{"1":"283.8","2":"0","3":"333"},{"1":"289.6","2":"1","3":"333"},{"1":"276.8","2":"2","3":"333"},{"1":"299.8","2":"3","3":"333"},{"1":"297.2","2":"4","3":"333"},{"1":"338.2","2":"5","3":"333"},{"1":"332.0","2":"6","3":"333"},{"1":"348.8","2":"7","3":"333"},{"1":"333.4","2":"8","3":"333"},{"1":"362.0","2":"9","3":"333"},{"1":"265.5","2":"0","3":"334"},{"1":"276.2","2":"1","3":"334"},{"1":"243.4","2":"2","3":"334"},{"1":"254.7","2":"3","3":"334"},{"1":"279.0","2":"4","3":"334"},{"1":"284.2","2":"5","3":"334"},{"1":"305.5","2":"6","3":"334"},{"1":"331.5","2":"7","3":"334"},{"1":"335.7","2":"8","3":"334"},{"1":"377.3","2":"9","3":"334"},{"1":"241.6","2":"0","3":"335"},{"1":"273.9","2":"1","3":"335"},{"1":"254.5","2":"2","3":"335"},{"1":"270.8","2":"3","3":"335"},{"1":"251.5","2":"4","3":"335"},{"1":"254.6","2":"5","3":"335"},{"1":"245.5","2":"6","3":"335"},{"1":"235.3","2":"7","3":"335"},{"1":"235.8","2":"8","3":"335"},{"1":"237.2","2":"9","3":"335"},{"1":"312.4","2":"0","3":"337"},{"1":"313.8","2":"1","3":"337"},{"1":"291.6","2":"2","3":"337"},{"1":"346.1","2":"3","3":"337"},{"1":"365.7","2":"4","3":"337"},{"1":"391.8","2":"5","3":"337"},{"1":"404.3","2":"6","3":"337"},{"1":"416.7","2":"7","3":"337"},{"1":"455.9","2":"8","3":"337"},{"1":"458.9","2":"9","3":"337"},{"1":"236.1","2":"0","3":"349"},{"1":"230.3","2":"1","3":"349"},{"1":"238.9","2":"2","3":"349"},{"1":"254.9","2":"3","3":"349"},{"1":"250.7","2":"4","3":"349"},{"1":"269.8","2":"5","3":"349"},{"1":"281.6","2":"6","3":"349"},{"1":"308.1","2":"7","3":"349"},{"1":"336.3","2":"8","3":"349"},{"1":"351.6","2":"9","3":"349"},{"1":"256.3","2":"0","3":"350"},{"1":"243.5","2":"1","3":"350"},{"1":"256.2","2":"2","3":"350"},{"1":"255.5","2":"3","3":"350"},{"1":"268.9","2":"4","3":"350"},{"1":"329.7","2":"5","3":"350"},{"1":"379.4","2":"6","3":"350"},{"1":"362.9","2":"7","3":"350"},{"1":"394.5","2":"8","3":"350"},{"1":"389.1","2":"9","3":"350"},{"1":"250.5","2":"0","3":"351"},{"1":"300.1","2":"1","3":"351"},{"1":"269.9","2":"2","3":"351"},{"1":"280.6","2":"3","3":"351"},{"1":"271.8","2":"4","3":"351"},{"1":"304.6","2":"5","3":"351"},{"1":"287.7","2":"6","3":"351"},{"1":"266.6","2":"7","3":"351"},{"1":"321.5","2":"8","3":"351"},{"1":"347.6","2":"9","3":"351"},{"1":"221.7","2":"0","3":"352"},{"1":"298.2","2":"1","3":"352"},{"1":"326.9","2":"2","3":"352"},{"1":"346.9","2":"3","3":"352"},{"1":"348.7","2":"4","3":"352"},{"1":"352.8","2":"5","3":"352"},{"1":"354.4","2":"6","3":"352"},{"1":"360.4","2":"7","3":"352"},{"1":"375.6","2":"8","3":"352"},{"1":"388.5","2":"9","3":"352"},{"1":"271.9","2":"0","3":"369"},{"1":"268.4","2":"1","3":"369"},{"1":"257.2","2":"2","3":"369"},{"1":"277.7","2":"3","3":"369"},{"1":"314.8","2":"4","3":"369"},{"1":"317.2","2":"5","3":"369"},{"1":"298.1","2":"6","3":"369"},{"1":"348.1","2":"7","3":"369"},{"1":"340.3","2":"8","3":"369"},{"1":"366.5","2":"9","3":"369"},{"1":"225.3","2":"0","3":"370"},{"1":"234.5","2":"1","3":"370"},{"1":"238.9","2":"2","3":"370"},{"1":"240.5","2":"3","3":"370"},{"1":"267.5","2":"4","3":"370"},{"1":"344.2","2":"5","3":"370"},{"1":"281.1","2":"6","3":"370"},{"1":"347.6","2":"7","3":"370"},{"1":"365.2","2":"8","3":"370"},{"1":"372.2","2":"9","3":"370"},{"1":"269.9","2":"0","3":"371"},{"1":"272.4","2":"1","3":"371"},{"1":"277.9","2":"2","3":"371"},{"1":"281.8","2":"3","3":"371"},{"1":"279.2","2":"4","3":"371"},{"1":"284.5","2":"5","3":"371"},{"1":"259.3","2":"6","3":"371"},{"1":"304.6","2":"7","3":"371"},{"1":"350.8","2":"8","3":"371"},{"1":"369.5","2":"9","3":"371"},{"1":"269.4","2":"0","3":"372"},{"1":"273.5","2":"1","3":"372"},{"1":"297.6","2":"2","3":"372"},{"1":"310.6","2":"3","3":"372"},{"1":"287.2","2":"4","3":"372"},{"1":"329.6","2":"5","3":"372"},{"1":"334.5","2":"6","3":"372"},{"1":"343.2","2":"7","3":"372"},{"1":"369.1","2":"8","3":"372"},{"1":"364.1","2":"9","3":"372"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days, <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean   SE  df lower.CL upper.CL
+  4.5    299 3.56 178      291      306
+
+Confidence level used: 0.95 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> Subject, <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean   SE  df lower.CL upper.CL
+  4.5    299 2.31 161      294      303
+
+Results are averaged over the levels of: Subject 
+Confidence level used: 0.95 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days <span class="sc">*</span> Subject, <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean   SE  df lower.CL upper.CL
+  4.5    299 1.91 144      295      302
+
+Results are averaged over the levels of: Subject 
+Confidence level used: 0.95 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean   SE df lower.CL upper.CL
+  4.5    299 9.05 17      279      318
+
+Degrees-of-freedom method: kenward-roger 
+Confidence level used: 0.95 </code></pre>
+</div>
+</div>
+</section>
+<section id="bayesian" class="level3">
+<h3 class="anchored" data-anchor-id="bayesian">Bayesian</h3>
+<section id="rstanarm" class="level4">
+<h4 class="anchored" data-anchor-id="rstanarm">rstanarm</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> rstanarm<span class="sc">::</span><span class="fu">stan_glm</span>(Reaction <span class="sc">~</span> Days, <span class="at">data =</span> sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(fit, <span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean lower.HPD upper.HPD
+  4.5    298       292       305
+
+Point estimate displayed: median 
+HPD interval probability: 0.95 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> rstanarm<span class="sc">::</span><span class="fu">stan_glm</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> Subject, <span class="at">data =</span> sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(fit, <span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean lower.HPD upper.HPD
+  4.5    299       294       303
+
+Results are averaged over the levels of: Subject 
+Point estimate displayed: median 
+HPD interval probability: 0.95 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> rstanarm<span class="sc">::</span><span class="fu">stan_glm</span>(Reaction <span class="sc">~</span> Days <span class="sc">*</span> Subject, <span class="at">data =</span> sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(fit, <span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean lower.HPD upper.HPD
+  4.5    298       295       302
+
+Results are averaged over the levels of: Subject 
+Point estimate displayed: median 
+HPD interval probability: 0.95 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> rstanarm<span class="sc">::</span><span class="fu">stan_glmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">emmeans</span>(fit, <span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> Days emmean lower.HPD upper.HPD
+  4.5    298       279       317
+
+Point estimate displayed: median 
+HPD interval probability: 0.95 </code></pre>
+</div>
+</div>
+</section>
+<section id="stan-1" class="level4">
+<h4 class="anchored" data-anchor-id="stan-1">Stan</h4>
+<div class="cell" data-output.var="real_data_mod">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode stan code-with-copy"><code class="sourceCode stan"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+</section>
 <section id="print-environment" class="level2">
 <h2 class="anchored" data-anchor-id="print-environment">Print environment</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -479,16 +613,26 @@ $y
  abind            1.4-8       2024-09-12 [1] CRAN (R 4.4.1)
  assertthat       0.2.1       2019-03-21 [1] CRAN (R 4.4.0)
  backports        1.5.0       2024-05-23 [1] CRAN (R 4.4.0)
+ base64enc        0.1-3       2015-07-28 [1] CRAN (R 4.4.0)
  bayesplot      * 1.11.1      2024-02-15 [1] CRAN (R 4.4.0)
+ boot             1.3-31      2024-08-28 [2] CRAN (R 4.4.3)
+ broom            1.0.7       2024-09-26 [1] CRAN (R 4.4.1)
  callr            3.7.6       2024-03-25 [1] CRAN (R 4.4.0)
  checkmate        2.3.2       2024-07-29 [1] CRAN (R 4.4.0)
  cli              3.6.4       2025-02-13 [1] CRAN (R 4.4.1)
+ coda             0.19-4.1    2024-01-31 [1] CRAN (R 4.4.0)
  codetools        0.2-20      2024-03-31 [2] CRAN (R 4.4.3)
  colorspace       2.1-1       2024-07-26 [1] CRAN (R 4.4.0)
+ colourpicker     1.3.0       2023-08-21 [1] CRAN (R 4.4.0)
+ crosstalk        1.2.1       2023-11-23 [1] CRAN (R 4.4.0)
  curl             6.2.1       2025-02-19 [1] CRAN (R 4.4.1)
  digest           0.6.37      2024-08-19 [1] CRAN (R 4.4.1)
  distributional   0.5.0       2024-09-17 [1] CRAN (R 4.4.1)
  dplyr          * 1.1.4       2023-11-17 [1] CRAN (R 4.4.0)
+ DT               0.33        2024-04-04 [1] CRAN (R 4.4.0)
+ dygraphs         1.1.1.6     2018-07-11 [1] CRAN (R 4.4.0)
+ emmeans        * 1.11.0      2025-03-20 [1] CRAN (R 4.4.1)
+ estimability     1.5.1       2024-05-12 [1] CRAN (R 4.4.0)
  evaluate         1.0.3       2025-01-10 [1] CRAN (R 4.4.1)
  farver           2.1.2       2024-05-13 [1] CRAN (R 4.4.0)
  fastmap          1.2.0       2024-05-15 [1] CRAN (R 4.4.0)
@@ -500,47 +644,79 @@ $y
  glue             1.8.0       2024-09-30 [1] CRAN (R 4.4.1)
  gridExtra        2.3         2017-09-09 [1] CRAN (R 4.4.0)
  gtable           0.3.6       2024-10-25 [1] CRAN (R 4.4.1)
+ gtools           3.9.5       2023-11-20 [1] CRAN (R 4.4.0)
  haven            2.5.4       2023-11-30 [1] CRAN (R 4.4.0)
  hms              1.1.3       2023-03-21 [1] CRAN (R 4.4.0)
  htmltools        0.5.8.1     2024-04-04 [1] CRAN (R 4.4.0)
  htmlwidgets      1.6.4       2023-12-06 [1] CRAN (R 4.4.0)
+ httpuv           1.6.15      2024-03-26 [1] CRAN (R 4.4.0)
+ igraph           2.1.4       2025-01-23 [1] CRAN (R 4.4.1)
  inline           0.3.21      2025-01-09 [1] CRAN (R 4.4.1)
  jsonlite         1.9.1       2025-03-03 [1] CRAN (R 4.4.1)
  knitr            1.50        2025-03-16 [1] CRAN (R 4.4.1)
  labeling         0.4.3       2023-08-29 [1] CRAN (R 4.4.0)
  labelled         2.14.0      2025-01-08 [1] CRAN (R 4.4.1)
+ later            1.4.1       2024-11-27 [1] CRAN (R 4.4.1)
+ lattice          0.22-6      2024-03-20 [2] CRAN (R 4.4.3)
  lifecycle        1.0.4       2023-11-07 [1] CRAN (R 4.4.0)
+ lme4           * 1.1-36      2025-01-11 [1] CRAN (R 4.4.1)
+ lmerTest       * 3.1-3       2020-10-23 [1] CRAN (R 4.4.0)
  loo              2.8.0       2024-07-03 [1] CRAN (R 4.4.0)
  lubridate      * 1.9.4       2024-12-08 [1] CRAN (R 4.4.1)
  magrittr         2.0.3       2022-03-30 [1] CRAN (R 4.4.0)
+ markdown         1.13        2024-06-04 [1] CRAN (R 4.4.0)
  MASS             7.3-64      2025-01-04 [2] CRAN (R 4.4.3)
+ Matrix         * 1.7-2       2025-01-23 [2] CRAN (R 4.4.3)
  matrixStats      1.5.0       2025-01-07 [1] CRAN (R 4.4.1)
+ mime             0.13        2025-03-17 [1] CRAN (R 4.4.1)
+ miniUI           0.1.1.1     2018-05-18 [1] CRAN (R 4.4.0)
+ minqa            1.2.8       2024-08-17 [1] CRAN (R 4.4.0)
  mosaicCore       0.9.4.0     2023-11-05 [1] CRAN (R 4.4.0)
+ multcomp         1.4-28      2025-01-29 [1] CRAN (R 4.4.1)
  munsell          0.5.1       2024-04-01 [1] CRAN (R 4.4.0)
+ mvtnorm          1.3-3       2025-01-10 [1] CRAN (R 4.4.1)
+ nlme             3.1-167     2025-01-27 [2] CRAN (R 4.4.3)
+ nloptr           2.2.1       2025-03-17 [1] CRAN (R 4.4.1)
+ numDeriv         2016.8-1.1  2019-06-06 [1] CRAN (R 4.4.0)
+ pbkrtest         0.5.3       2024-06-26 [1] CRAN (R 4.4.0)
  pillar           1.10.1      2025-01-07 [1] CRAN (R 4.4.1)
  pkgbuild         1.4.6       2025-01-16 [1] CRAN (R 4.4.1)
  pkgconfig        2.0.3       2019-09-22 [1] CRAN (R 4.4.0)
  plyr             1.8.9       2023-10-02 [1] CRAN (R 4.4.0)
  posterior      * 1.6.1       2025-02-27 [1] CRAN (R 4.4.1)
  processx         3.8.6       2025-02-21 [1] CRAN (R 4.4.1)
+ promises         1.3.2       2024-11-28 [1] CRAN (R 4.4.1)
  ps               1.9.0       2025-02-18 [1] CRAN (R 4.4.1)
  purrr          * 1.0.4       2025-02-05 [1] CRAN (R 4.4.1)
  QuickJSR         1.6.0       2025-02-26 [1] CRAN (R 4.4.1)
  R6               2.6.1       2025-02-15 [1] CRAN (R 4.4.1)
+ rbibutils        2.3         2024-10-04 [1] CRAN (R 4.4.1)
  Rcpp             1.0.14      2025-01-12 [1] CRAN (R 4.4.1)
  RcppParallel     5.1.10      2025-01-24 [1] CRAN (R 4.4.1)
+ Rdpack           2.6.3       2025-03-16 [1] CRAN (R 4.4.1)
  readr          * 2.1.5       2024-01-10 [1] CRAN (R 4.4.0)
+ reformulas       0.4.0       2024-11-03 [1] CRAN (R 4.4.1)
  reshape2         1.4.4       2020-04-09 [1] CRAN (R 4.4.0)
  rlang            1.1.5       2025-01-17 [1] CRAN (R 4.4.1)
  rmarkdown        2.29        2024-11-04 [1] CRAN (R 4.4.1)
  rstan          * 2.35.0.9000 2024-06-06 [1] https://stan-dev.r-universe.dev (R 4.4.0)
+ rstanarm         2.32.1      2024-01-18 [1] CRAN (R 4.4.0)
+ rstantools       2.4.0       2024-01-31 [1] CRAN (R 4.4.0)
  rstudioapi       0.17.1      2024-10-22 [1] CRAN (R 4.4.1)
+ sandwich         3.1-1       2024-09-15 [1] CRAN (R 4.4.1)
  scales         * 1.3.0       2023-11-28 [1] CRAN (R 4.4.0)
  sessioninfo      1.2.3       2025-02-05 [1] CRAN (R 4.4.1)
+ shiny            1.10.0      2024-12-14 [1] CRAN (R 4.4.1)
+ shinyjs          2.1.0       2021-12-23 [1] CRAN (R 4.4.0)
+ shinystan        2.6.0       2022-03-03 [1] CRAN (R 4.4.0)
+ shinythemes      1.2.0       2021-01-25 [1] CRAN (R 4.4.0)
  StanHeaders    * 2.35.0.9000 2024-06-06 [1] https://stan-dev.r-universe.dev (R 4.4.0)
  stringi          1.8.4       2024-05-06 [1] CRAN (R 4.4.0)
  stringr        * 1.5.1       2023-11-14 [1] CRAN (R 4.4.0)
+ survival         3.8-3       2024-12-17 [2] CRAN (R 4.4.3)
  tensorA          0.36.2.1    2023-12-13 [1] CRAN (R 4.4.0)
+ TH.data          1.1-3       2025-01-17 [1] CRAN (R 4.4.1)
+ threejs          0.3.3       2020-01-21 [1] CRAN (R 4.4.0)
  tibble         * 3.2.1       2023-03-20 [1] CRAN (R 4.4.0)
  tidyr          * 1.3.1       2024-01-24 [1] CRAN (R 4.4.0)
  tidyselect       1.2.1       2024-03-11 [1] CRAN (R 4.4.0)
@@ -552,7 +728,10 @@ $y
  vctrs            0.6.5       2023-12-01 [1] CRAN (R 4.4.0)
  withr            3.0.2       2024-10-28 [1] CRAN (R 4.4.1)
  xfun             0.51        2025-02-19 [1] CRAN (R 4.4.1)
+ xtable           1.8-4       2019-04-21 [1] CRAN (R 4.4.0)
+ xts              0.14.1      2024-10-15 [1] CRAN (R 4.4.1)
  yaml             2.3.10      2024-07-26 [1] CRAN (R 4.4.0)
+ zoo              1.8-13      2025-02-22 [1] CRAN (R 4.4.1)
 
  [1] /Users/marcoe02/.Rlib
  [2] /Library/Frameworks/R.framework/Versions/4.4-arm64/Resources/library
