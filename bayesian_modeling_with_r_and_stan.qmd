@@ -1,0 +1,265 @@
+---
+title: "Bayesian modeling with R and Stan"
+format:
+  html:
+    toc: true
+    df-print: paged
+---
+
+## References
+
+[Bayesian Modeling with R and Stan \[YouTube video\]](https://youtu.be/QqwCqPYbatA)
+
+## Setup environment
+
+```{r}
+#| output: false
+library(tidyverse)
+library(ggformula)
+library(rstan)
+library(posterior)
+library(bayesplot)
+library(triangle)
+
+options(mc.cores = parallel::detectCores())
+
+rstan_options(auto_write = TRUE)
+rstan_options(threads_per_chain = 1)
+
+theme_set(theme_bw())
+
+set.rseed(666)
+```
+
+## Bayes' theorem
+
+$$
+P(A, B) = P(A) \cdot P(B \mid A)
+$$
+
+$$
+P(B \mid A) = \frac{P(A,B)}{P(A)} = \frac{P(B,A)}{P(A)} = \frac{P(B) \cdot P(A \mid B)}{P(A)}
+$$
+
+## Bayesian data analysis
+
+$$
+p(\theta \mid y) = \frac{p(\theta) \cdot p(y \mid \theta)}{p(y)} = \frac{p(\theta) \cdot p(y \mid \theta)}{\int_{\Theta} p(\theta) \cdot p(y \mid \theta)}
+$$
+
+$$
+p(\theta \mid y) \propto p(\theta) \cdot p(y \mid \theta)
+$$ $$
+\text{posterior} \propto \text{prior} \cdot \text{likelihood}
+$$
+
+## Frequentist vs Bayesian
+
+![](images/clipboard-2252807087.png)
+
+## Binomial example
+
+### Grid approximation
+
+In $n$ (18) trials, we observe $k$ (12) successes. The likelihood function is expressed as follows:
+
+$$
+p(k, n \mid \theta) \propto \theta^{k} \times (1 - \theta)^{n - k}
+$$
+
+$$
+p(K = 12, N = 18 \mid \theta) \propto \theta^{12} \times (1 - \theta)^{6}
+$$
+
+```{r}
+gf_function(
+  fun = function(p) dbinom(12, size = 18, prob = p),
+  xlim = c(0, 1)) |>
+  gf_labs(
+    x = "Probability of success (θ)",
+    y = "Likelihood",
+    title = "Binomial likelihood function for 12 successes in 18 trials"
+  )
+
+```
+
+Assuming a uniform prior:
+
+$$
+p(\theta) = 1
+$$
+
+The posterior is proportional to the likelihood function:
+
+$$
+p(\theta \mid K, N) \propto p(\theta) \cdot p(K, N \mid \theta) = p(K, N \mid \theta)
+$$
+
+```{r}
+p <- seq(0, 1, length.out = 1000)
+prior <- dbeta(p, 1, 1)
+lik <- dbinom(12, size = 18, prob = p)
+post <- prior * lik
+prior <- prior / sum(prior) # norm prior
+lik <- lik / sum(lik)       # norm likelihood
+post <- post / sum(post)    # norm posterior
+
+tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+    x = "Probability of success (θ)",
+    y = "Likelihood",
+    title = "Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"
+  )
+```
+
+```{r}
+p <- seq(0, 1, length.out = 1000)
+prior <- dbeta(p, 4, 4)
+lik <- dbinom(12, size = 18, prob = p)
+post <- prior * lik
+prior <- prior / sum(prior) # norm prior
+lik <- lik / sum(lik)       # norm likelihood
+post <- post / sum(post)    # norm posterior
+
+tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+    x = "Probability of success (θ)",
+    y = "Likelihood",
+    title = "Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"
+  )
+```
+
+```{r}
+p <- seq(0, 1, length.out = 1000)
+prior <- dtriangle(p)
+lik <- dbinom(12, size = 18, prob = p)
+post <- prior * lik
+prior <- prior / sum(prior) # norm prior
+lik <- lik / sum(lik)       # norm likelihood
+post <- post / sum(post)    # norm posterior
+
+tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+    x = "Probability of success (θ)",
+    y = "Likelihood",
+    title = "Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"
+  )
+```
+
+```{r}
+p <- seq(0, 1, length.out = 1000)
+prior <- dbeta(p, 1, 1)
+lik <- dbinom(2, size = 3, prob = p)
+post <- prior * lik
+prior <- prior / sum(prior) # norm prior
+lik <- lik / sum(lik)       # norm likelihood
+post <- post / sum(post)    # norm posterior
+
+tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+    x = "Probability of success (θ)",
+    y = "Likelihood",
+    title = "Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"
+  )
+```
+
+```{r}
+p <- seq(0, 1, length.out = 1000)
+prior <- dbeta(p, 4, 4)
+lik <- dbinom(2, size = 3, prob = p)
+post <- prior * lik
+prior <- prior / sum(prior) # norm prior
+lik <- lik / sum(lik)       # norm likelihood
+post <- post / sum(post)    # norm posterior
+
+tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+    x = "Probability of success (θ)",
+    y = "Likelihood",
+    title = "Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"
+  )
+```
+
+```{r}
+p <- seq(0, 1, length.out = 1000)
+prior <- dtriangle(p)
+lik <- dbinom(2, size = 3, prob = p)
+post <- prior * lik
+prior <- prior / sum(prior) # norm prior
+lik <- lik / sum(lik)       # norm likelihood
+post <- post / sum(post)    # norm posterior
+
+tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+    x = "Probability of success (θ)",
+    y = "Likelihood",
+    title = "Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"
+  )
+```
+
+### Stan
+
+```{r}
+N <- 18
+y <- c(rep(1, 12), rep(0, 6))
+stan_data <- list(N = N, y = y)
+stan_data
+```
+
+```{stan output.var="bin_unif_mod"}
+data {
+  int<lower=0> N;
+  array[N] int<lower=0, upper=1> y;
+}
+
+parameters {
+  real<lower=0, upper=1> theta;
+}
+
+model {
+  theta ~ uniform(0, 1); // prior
+  y ~ bernoulli(theta);  // likelihood
+}
+```
+
+```{r}
+#| output: false
+bin_unif_fit <- sampling(bin_unif_mod, data = stan_data)
+```
+
+```{r}
+summary(as_draws(bin_unif_fit))
+```
+
+```{r}
+mcmc_combo(bin_unif_fit)
+```
+
+```{stan output.var="bin_beta_mod"}
+data {
+  int<lower=0> N;
+  array[N] int<lower=0, upper=1> y;
+}
+
+parameters {
+  real<lower=0, upper=1> theta;
+}
+
+model {
+  theta ~ beta(4, 4); // prior
+  y ~ bernoulli(theta);  // likelihood
+}
+```
+
+```{r}
+#| output: false
+bin_beta_fit <- sampling(bin_beta_mod, data = stan_data)
+```
+
+```{r}
+summary(as_draws(bin_beta_fit))
+```
+
+```{r}
+mcmc_combo(bin_beta_fit)
+```
+
+## Print environment
+
+```{r}
+sessioninfo::session_info()
+```

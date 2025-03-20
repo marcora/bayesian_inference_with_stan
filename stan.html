@@ -95,7 +95,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#step-6-visualizing-bayesian-model-predictions" id="toc-step-6-visualizing-bayesian-model-predictions" class="nav-link" data-scroll-target="#step-6-visualizing-bayesian-model-predictions">Step 6: Visualizing Bayesian model predictions</a></li>
   <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best practices</a></li>
   </ul></li>
-  <li><a href="#jags" id="toc-jags" class="nav-link" data-scroll-target="#jags">JAGS</a></li>
   <li><a href="#bayesian-data-analysis-in-r" id="toc-bayesian-data-analysis-in-r" class="nav-link" data-scroll-target="#bayesian-data-analysis-in-r">Bayesian data analysis in R</a></li>
   </ul>
 </nav>
@@ -199,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">N =</span> <span class="fu">length</span>(y), <span class="at">y =</span> y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m1<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> d) <span class="sc">%&gt;%</span> <span class="fu">as_draws</span>() <span class="sc">|&gt;</span> <span class="fu">mcmc_combo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>m1<span class="sc">$</span><span class="fu">sample</span>(<span class="at">data =</span> d) <span class="sc">|&gt;</span> <span class="fu">as_draws</span>() <span class="sc">|&gt;</span> <span class="fu">mcmc_combo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>m2 <span class="ot">&lt;-</span> <span class="fu">ulam</span>(</span>
@@ -523,12 +522,12 @@ Formula: y ~ x
 
 Regression Coefficients:
           Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-Intercept     5.07      0.19     4.70     5.46 1.00     3799     2984
-x            -0.18      0.20    -0.58     0.23 1.00     3961     3185
+Intercept     5.02      0.19     4.64     5.38 1.00     4197     2635
+x            -0.09      0.21    -0.49     0.31 1.00     3582     2681
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     1.95      0.14     1.71     2.26 1.00     3641     2877
+sigma     1.95      0.14     1.70     2.26 1.00     3924     2882
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -564,12 +563,12 @@ scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 Computed from 4000 by 1 log-likelihood matrix.
 
          Estimate SE
-elpd_loo   -116.9 NA
-p_loo         1.5 NA
-looic       233.7 NA
+elpd_loo   -116.7 NA
+p_loo         1.4 NA
+looic       233.5 NA
 ------
 MCSE of elpd_loo is NA.
-MCSE and ESS estimates assume MCMC draws (r_eff in [0.5, 0.5]).
+MCSE and ESS estimates assume MCMC draws (r_eff in [0.4, 0.4]).
 
 Pareto k diagnostic values:
                          Count Pct.    Min. ESS
@@ -621,11 +620,6 @@ See help('pareto-k-diagnostic') for details.</code></pre>
 </ul>
 <p>Bayesian Data Analysis with R and Stan provides a powerful and flexible framework for statistical modeling and inference. It is widely used in various fields, including biology, epidemiology, finance, and more. Understanding the principles of Bayesian inference and the practical aspects of implementing models in Stan can open up new possibilities for data analysis.</p>
 </section>
-</section>
-<section id="jags" class="level2">
-<h2 class="anchored" data-anchor-id="jags">JAGS</h2>
-<p><a href="https://mcmc-jags.sourceforge.io/" class="uri">https://mcmc-jags.sourceforge.io/</a></p>
-<p><a href="https://cran.r-project.org/web/packages/rjags/index.html" class="uri">https://cran.r-project.org/web/packages/rjags/index.html</a></p>
 </section>
 <section id="bayesian-data-analysis-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="bayesian-data-analysis-in-r">Bayesian data analysis in R</h2>
