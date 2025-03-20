@@ -196,9 +196,8 @@ tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = 
 ### stan
 
 ```{r}
-N <- 18
 y <- c(rep(1, 12), rep(0, 6))
-stan_data <- list(N = N, y = y)
+stan_data <- list(N = length(y), y = y)
 stan_data
 ```
 
@@ -326,7 +325,41 @@ emmeans(fit, "Days")
 
 #### stan
 
+```{r}
+stan_data <- list(
+  N = nrow(sleepstudy),
+  K = length(unique(sleepstudy$Subject)),
+  Reaction = sleepstudy$Reaction,
+  Days = sleepstudy$Days,
+  Subject = as.numeric(sleepstudy$Subject))
+```
+
 ```{stan output.var="real_data_mod"}
+data {
+  int<lower=1> N;
+  int<lower=1> K;
+  
+  array[N] real Reaction;
+  array[N] int<lower=0, upper=9> Days;
+  array[N] int<lower=1, upper=K> Subject;
+}
+
+parameters {}
+
+model {}
+```
+
+```{r}
+#| output: false
+#real_data_fit <- sampling(real_data_mod, data = stan_data)
+```
+
+```{r}
+#summary(as_draws(real_data_fit))
+```
+
+```{r}
+#mcmc_combo(real_data_fit)
 ```
 
 ## Print environment
