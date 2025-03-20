@@ -1,0 +1,125 @@
+---
+title: "Bayesian inference with Stan"
+format:
+  html:
+    toc: true
+    df-print: paged
+---
+
+## References
+
+[Bayesian Inference with Stan \[YouTube playlist\]](https://youtube.com/playlist?list=PLtjJ_Rt8bTdJEeV0afADtWvqq_t0_iksX)
+
+## Setup environment
+
+```{r}
+#| output: false
+library(tidyverse)
+library(rstan)
+library(cmdstanr)
+library(rethinking)
+library(brms)
+library(posterior)
+library(bayesplot)
+library(loo)
+library(shinystan)
+library(bayestestR)
+library(tidybayes)
+library(tidybayes.rethinking) # mjskay/tidybayes.rethinking
+library(performance)
+library(parameters)
+library(broom)
+library(broom.mixed)
+library(modelsummary)
+library(marginaleffects)
+library(ggeffects)
+library(ggformula)
+library(mosaic)
+
+options(mc.cores = parallel::detectCores(), brms.backend = "cmdstanr")
+
+rstan_options(auto_write = TRUE)
+rstan_options(threads_per_chain = 1)
+
+check_cmdstan_toolchain(fix = TRUE, quiet = TRUE)
+register_knitr_engine(override = FALSE)
+
+theme_set(theme_bw())
+
+set.rseed(666)
+```
+
+## Scientific question and statistical estimand
+
+XXX
+
+## Specify scientific model
+
+```{dot}
+digraph BetaBinomialDGP {
+    rankdir=TB;
+    node [shape=ellipse, style=filled, fillcolor=lightgray];
+
+    # Nodes with simple names but detailed labels
+    alpha_beta [label="α, β (Hyperparameters)" fillcolor=lightblue];
+    theta [label="θ (Latent Proportion)" fillcolor=lightgreen];
+    y [label="y (Observed Count)" fillcolor=lightcoral];
+    n [label="n (Total Trials)" fillcolor=lightgray];
+
+    # Edges with descriptive labels
+    alpha_beta -> theta [label="Beta(α, β)"];
+    theta -> y [label="Binomial(n, θ)"];
+    n -> y;
+
+    # Graph Label
+    label="Beta-Binomial Data Generating Process (DGP)";
+    fontsize=14;
+}
+```
+
+## Specify statistical model
+
+```{cmdstan output.var="mod"}
+data {
+  int<lower=0> N;
+  array[N] int<lower=0, upper=1> y;
+}
+
+parameters {
+  real<lower=0, upper=1> theta;
+}
+
+model {
+  theta ~ beta(1, 1);   // uniform prior on interval 0, 1
+  y ~ bernoulli(theta); // likelihood
+}
+```
+
+## Fit model
+
+```{r}
+y <- c(0, 1, 0, 0, 0, 0, 0, 0, 0, 1)
+
+d <- list(N = length(y), y = y)
+```
+
+```{r}
+#| output: false
+fit <- mod$sample(data = d)
+```
+
+## Summarize posterior
+
+```{r}
+mcmc_combo(fit$draws(variables = "theta"))
+```
+
+```{r}
+fit$summary(variables = "theta")
+```
+
+## Print environment
+
+```{r}
+sessioninfo::session_info()
+```
