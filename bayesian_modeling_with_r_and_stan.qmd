@@ -106,7 +106,7 @@ prior <- prior / sum(prior) # norm prior
 lik <- lik / sum(lik)       # norm likelihood
 post <- post / sum(post)    # norm posterior
 
-tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+tibble(p, prior, lik, post) |> pivot_longer(-p) |> gf_line(value ~ p, color = ~ name) |>  gf_labs(
     x = "Probability of success (θ)",
     y = "Likelihood",
     title = "Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"
@@ -122,7 +122,7 @@ prior <- prior / sum(prior) # norm prior
 lik <- lik / sum(lik)       # norm likelihood
 post <- post / sum(post)    # norm posterior
 
-tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+tibble(p, prior, lik, post) |> pivot_longer(-p) |> gf_line(value ~ p, color = ~ name) |> gf_labs(
     x = "Probability of success (θ)",
     y = "Likelihood",
     title = "Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"
@@ -138,7 +138,7 @@ prior <- prior / sum(prior) # norm prior
 lik <- lik / sum(lik)       # norm likelihood
 post <- post / sum(post)    # norm posterior
 
-tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+tibble(p, prior, lik, post) |> pivot_longer(-p) |> gf_line(value ~ p, color = ~ name) |> gf_labs(
     x = "Probability of success (θ)",
     y = "Likelihood",
     title = "Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"
@@ -154,7 +154,7 @@ prior <- prior / sum(prior) # norm prior
 lik <- lik / sum(lik)       # norm likelihood
 post <- post / sum(post)    # norm posterior
 
-tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+tibble(p, prior, lik, post) |> pivot_longer(-p) |> gf_line(value ~ p, color = ~ name) |> gf_labs(
     x = "Probability of success (θ)",
     y = "Likelihood",
     title = "Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"
@@ -170,7 +170,7 @@ prior <- prior / sum(prior) # norm prior
 lik <- lik / sum(lik)       # norm likelihood
 post <- post / sum(post)    # norm posterior
 
-tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+tibble(p, prior, lik, post) |> pivot_longer(-p) |> gf_line(value ~ p, color = ~ name) |> gf_labs(
     x = "Probability of success (θ)",
     y = "Likelihood",
     title = "Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"
@@ -186,7 +186,7 @@ prior <- prior / sum(prior) # norm prior
 lik <- lik / sum(lik)       # norm likelihood
 post <- post / sum(post)    # norm posterior
 
-tibble(p, prior, lik, post) %>% pivot_longer(-p) %>% gf_line(value ~ p, color = ~ name) %>%   gf_labs(
+tibble(p, prior, lik, post) |> pivot_longer(-p) |> gf_line(value ~ p, color = ~ name) |>  gf_labs(
     x = "Probability of success (θ)",
     y = "Likelihood",
     title = "Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"
@@ -268,19 +268,19 @@ sleepstudy
 ```
 
 ```{r}
-lm(Reaction ~ Days, data = sleepstudy) %>% emmeans("Days")
+lm(Reaction ~ Days, data = sleepstudy) |> emmeans("Days")
 ```
 
 ```{r}
-lm(Reaction ~ Days + Subject, data = sleepstudy) %>% emmeans("Days")
+lm(Reaction ~ Days + Subject, data = sleepstudy) |> emmeans("Days")
 ```
 
 ```{r}
-lm(Reaction ~ Days * Subject, data = sleepstudy) %>% emmeans("Days")
+lm(Reaction ~ Days * Subject, data = sleepstudy) |> emmeans("Days")
 ```
 
 ```{r}
-lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy) %>% emmeans("Days")
+lmer(Reaction ~ Days + (Days | Subject), data = sleepstudy) |> emmeans("Days")
 ```
 
 ### Bayesian

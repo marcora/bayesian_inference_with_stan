@@ -245,7 +245,7 @@ p(\theta \mid K, N) \propto p(\theta) \cdot p(K, N \mid \theta) = p(K, N \mid \t
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>lik <span class="ot">&lt;-</span> lik <span class="sc">/</span> <span class="fu">sum</span>(lik)       <span class="co"># norm likelihood</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> post <span class="sc">/</span> <span class="fu">sum</span>(post)    <span class="co"># norm posterior</span></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">%&gt;%</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">%&gt;%</span>   <span class="fu">gf_labs</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">|&gt;</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">|&gt;</span>  <span class="fu">gf_labs</span>(</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Probability of success (θ)"</span>,</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Likelihood"</span>,</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"</span></span>
@@ -267,7 +267,7 @@ p(\theta \mid K, N) \propto p(\theta) \cdot p(K, N \mid \theta) = p(K, N \mid \t
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>lik <span class="ot">&lt;-</span> lik <span class="sc">/</span> <span class="fu">sum</span>(lik)       <span class="co"># norm likelihood</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> post <span class="sc">/</span> <span class="fu">sum</span>(post)    <span class="co"># norm posterior</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">%&gt;%</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">%&gt;%</span>   <span class="fu">gf_labs</span>(</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">|&gt;</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">|&gt;</span> <span class="fu">gf_labs</span>(</span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Probability of success (θ)"</span>,</span>
 <span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Likelihood"</span>,</span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"</span></span>
@@ -289,7 +289,7 @@ p(\theta \mid K, N) \propto p(\theta) \cdot p(K, N \mid \theta) = p(K, N \mid \t
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>lik <span class="ot">&lt;-</span> lik <span class="sc">/</span> <span class="fu">sum</span>(lik)       <span class="co"># norm likelihood</span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> post <span class="sc">/</span> <span class="fu">sum</span>(post)    <span class="co"># norm posterior</span></span>
 <span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">%&gt;%</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">%&gt;%</span>   <span class="fu">gf_labs</span>(</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">|&gt;</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">|&gt;</span> <span class="fu">gf_labs</span>(</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Probability of success (θ)"</span>,</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Likelihood"</span>,</span>
 <span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Binomial prior, posterior, and likelihood function for 12 successes in 18 trials"</span></span>
@@ -311,7 +311,7 @@ p(\theta \mid K, N) \propto p(\theta) \cdot p(K, N \mid \theta) = p(K, N \mid \t
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>lik <span class="ot">&lt;-</span> lik <span class="sc">/</span> <span class="fu">sum</span>(lik)       <span class="co"># norm likelihood</span></span>
 <span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> post <span class="sc">/</span> <span class="fu">sum</span>(post)    <span class="co"># norm posterior</span></span>
 <span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">%&gt;%</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">%&gt;%</span>   <span class="fu">gf_labs</span>(</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">|&gt;</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">|&gt;</span> <span class="fu">gf_labs</span>(</span>
 <span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Probability of success (θ)"</span>,</span>
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Likelihood"</span>,</span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"</span></span>
@@ -333,7 +333,7 @@ p(\theta \mid K, N) \propto p(\theta) \cdot p(K, N \mid \theta) = p(K, N \mid \t
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>lik <span class="ot">&lt;-</span> lik <span class="sc">/</span> <span class="fu">sum</span>(lik)       <span class="co"># norm likelihood</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> post <span class="sc">/</span> <span class="fu">sum</span>(post)    <span class="co"># norm posterior</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">%&gt;%</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">%&gt;%</span>   <span class="fu">gf_labs</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">|&gt;</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">|&gt;</span> <span class="fu">gf_labs</span>(</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Probability of success (θ)"</span>,</span>
 <span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Likelihood"</span>,</span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"</span></span>
@@ -355,7 +355,7 @@ p(\theta \mid K, N) \propto p(\theta) \cdot p(K, N \mid \theta) = p(K, N \mid \t
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>lik <span class="ot">&lt;-</span> lik <span class="sc">/</span> <span class="fu">sum</span>(lik)       <span class="co"># norm likelihood</span></span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>post <span class="ot">&lt;-</span> post <span class="sc">/</span> <span class="fu">sum</span>(post)    <span class="co"># norm posterior</span></span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">%&gt;%</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">%&gt;%</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">%&gt;%</span>   <span class="fu">gf_labs</span>(</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(p, prior, lik, post) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(<span class="sc">-</span>p) <span class="sc">|&gt;</span> <span class="fu">gf_line</span>(value <span class="sc">~</span> p, <span class="at">color =</span> <span class="sc">~</span> name) <span class="sc">|&gt;</span>  <span class="fu">gf_labs</span>(</span>
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Probability of success (θ)"</span>,</span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Likelihood"</span>,</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Binomial prior, posterior, and likelihood function for 2 successes in 3 trials"</span></span>
@@ -476,7 +476,7 @@ $y
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days, <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days, <span class="at">data =</span> sleepstudy) <span class="sc">|&gt;</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Days emmean   SE  df lower.CL upper.CL
   4.5    299 3.56 178      291      306
@@ -485,7 +485,7 @@ Confidence level used: 0.95 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> Subject, <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> Subject, <span class="at">data =</span> sleepstudy) <span class="sc">|&gt;</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Days emmean   SE  df lower.CL upper.CL
   4.5    299 2.31 161      294      303
@@ -495,7 +495,7 @@ Confidence level used: 0.95 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days <span class="sc">*</span> Subject, <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(Reaction <span class="sc">~</span> Days <span class="sc">*</span> Subject, <span class="at">data =</span> sleepstudy) <span class="sc">|&gt;</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>NOTE: Results may be misleading due to involvement in interactions</code></pre>
 </div>
@@ -508,7 +508,7 @@ Confidence level used: 0.95 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy) <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lmer</span>(Reaction <span class="sc">~</span> Days <span class="sc">+</span> (Days <span class="sc">|</span> Subject), <span class="at">data =</span> sleepstudy) <span class="sc">|&gt;</span> <span class="fu">emmeans</span>(<span class="st">"Days"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> Days emmean   SE df lower.CL upper.CL
   4.5    299 9.05 17      279      318
@@ -631,7 +631,7 @@ HPD interval probability: 0.95 </code></pre>
  collate  en_US.UTF-8
  ctype    en_US.UTF-8
  tz       America/New_York
- date     2025-03-20
+ date     2025-03-21
  pandoc   3.2 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)
  quarto   1.6.42 @ /usr/local/bin/quarto
 
