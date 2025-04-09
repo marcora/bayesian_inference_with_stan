@@ -26,10 +26,11 @@ library(loo)
 library(shinystan)
 library(bayestestR)
 library(tidybayes)
-library(tidybayes.rethinking) # mjskay/tidybayes.rethinking
+library(tidybayes.rethinking)
 library(broom)
 library(broom.mixed)
 library(ggformula)
+library(ggdist)
 library(mosaic)
 library(modelsummary)
 library(marginaleffects)
@@ -64,12 +65,12 @@ digraph BetaBinomialDGP {
     alpha_beta [label="α, β (Hyperparameters)" fillcolor=lightblue];
     theta [label="θ (Latent Proportion)" fillcolor=lightgreen];
     y [label="y (Observed Count)" fillcolor=lightcoral];
-    n [label="n (Total Trials)" fillcolor=lightgray];
+    N [label="N (Total Trials)" fillcolor=lightgray];
 
     # Edges with descriptive labels
     alpha_beta -> theta [label="Beta(α, β)"];
     theta -> y [label="Binomial(n, θ)"];
-    n -> y;
+    N -> y;
 
     # Graph Label
     label="Beta-Binomial Data Generating Process (DGP)";
@@ -80,28 +81,33 @@ digraph BetaBinomialDGP {
 ## Specify statistical model
 
 ```{r}
-m <- alist(
-  # likelihood
-  y ~ bern(pie),
-  
-  # prior
-  pie ~ beta(1, 1),
+f <- alist(
+  y ~ dbern(pi),
+  pi ~ dbeta(1, 1)
 )
 ```
 
-## Fit model
+## Condition statistical model
 
 ```{r}
-y <- c(0, 1, 0, 0, 0, 0, 0, 0, 0, 1)
-```
-
-```{r}
-f <- quap(m, data = list(y = y))
+fit <- quap(f, data = list(y = c(0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1)))
 ```
 
 ## Summarize posterior
 
-XXX
+```{r}
+summary(fit)
+```
+
+```{r}
+fit %>% tidy_draws() %>% median_qi()
+```
+
+```{r}
+fit %>% tidy_draws() %>% ggplot(aes(x = pi)) + stat_halfeye()
+```
+
+\
 
 ## Print environment
 
