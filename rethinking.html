@@ -82,6 +82,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
+  <li><a href="#the-bayesian-paradigm" id="toc-the-bayesian-paradigm" class="nav-link" data-scroll-target="#the-bayesian-paradigm">The Bayesian paradigm</a></li>
+  <li><a href="#forward-problem" id="toc-forward-problem" class="nav-link" data-scroll-target="#forward-problem">Forward problem</a></li>
+  <li><a href="#inverse-problem" id="toc-inverse-problem" class="nav-link" data-scroll-target="#inverse-problem">Inverse problem</a></li>
   <li><a href="#setup-environment" id="toc-setup-environment" class="nav-link" data-scroll-target="#setup-environment">Setup environment</a></li>
   <li><a href="#scientific-question-and-statistical-estimand" id="toc-scientific-question-and-statistical-estimand" class="nav-link" data-scroll-target="#scientific-question-and-statistical-estimand">Scientific question and statistical estimand</a></li>
   <li><a href="#specify-scientific-model" id="toc-specify-scientific-model" class="nav-link" data-scroll-target="#specify-scientific-model">Specify scientific model</a></li>
@@ -116,6 +119,122 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p><a href="https://youtube.com/playlist?list=PLtjJ_Rt8bTdJEeV0afADtWvqq_t0_iksX">Bayesian Inference with Stan [YouTube playlist]</a></p>
+<p><a href="https://youtu.be/2lgg6OIjd8M">Bayesian Analysis - Simon Mak</a></p>
+</section>
+<section id="the-bayesian-paradigm" class="level2">
+<h2 class="anchored" data-anchor-id="the-bayesian-paradigm">The Bayesian paradigm</h2>
+<ul>
+<li><p>Forward problem</p></li>
+<li><p>Inverse problem</p></li>
+<li><p>Bayes’ rule</p></li>
+</ul>
+</section>
+<section id="forward-problem" class="level2">
+<h2 class="anchored" data-anchor-id="forward-problem">Forward problem</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 326.41 49.60" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 45.6)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-45.6 322.41,-45.6 322.41,4 -4,4"></polygon>
+<!-- Outputs -->
+<g id="node1" class="node">
+<title>Outputs</title>
+<polygon fill="#669966" stroke="black" points="318.36,-41.4 214.53,-41.4 214.53,-0.2 318.36,-0.2 318.36,-41.4"></polygon>
+<text text-anchor="middle" x="266.45" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Outputs</text>
+<text text-anchor="middle" x="266.45" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">(Observables)</text>
+</g>
+<!-- Model -->
+<g id="node2" class="node">
+<title>Model</title>
+<polygon fill="#f4a261" stroke="#cc5500" points="178.55,-38.8 124.29,-38.8 124.29,-2.8 178.55,-2.8 178.55,-38.8"></polygon>
+<text text-anchor="middle" x="151.42" y="-16.6" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Model</text>
+</g>
+<!-- Model&#45;&gt;Outputs -->
+<g id="edge1" class="edge">
+<title>Model-&gt;Outputs</title>
+<path fill="none" stroke="black" d="M178.64,-20.8C186.41,-20.8 195.26,-20.8 204.28,-20.8"></path>
+<polygon fill="black" stroke="black" points="204.47,-24.3 214.47,-20.8 204.47,-17.3 204.47,-24.3"></polygon>
+</g>
+<!-- Parameters -->
+<g id="node3" class="node">
+<title>Parameters</title>
+<polygon fill="#4682b4" stroke="black" points="88.54,-41.4 -0.18,-41.4 -0.18,-0.2 88.54,-0.2 88.54,-41.4"></polygon>
+<text text-anchor="middle" x="44.18" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Model</text>
+<text text-anchor="middle" x="44.18" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Parameters</text>
+</g>
+<!-- Parameters&#45;&gt;Model -->
+<g id="edge2" class="edge">
+<title>Parameters-&gt;Model</title>
+<path fill="none" stroke="black" d="M88.59,-20.8C97.11,-20.8 105.97,-20.8 114.22,-20.8"></path>
+<polygon fill="black" stroke="black" points="114.28,-24.3 124.28,-20.8 114.28,-17.3 114.28,-24.3"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="inverse-problem" class="level2">
+<h2 class="anchored" data-anchor-id="inverse-problem">Inverse problem</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 354.75 49.60" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 45.6)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-45.6 350.75,-45.6 350.75,4 -4,4"></polygon>
+<!-- Outputs -->
+<g id="node1" class="node">
+<title>Outputs</title>
+<polygon fill="#669966" stroke="black" points="346.71,-41.4 242.87,-41.4 242.87,-0.2 346.71,-0.2 346.71,-41.4"></polygon>
+<text text-anchor="middle" x="294.79" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Outputs</text>
+<text text-anchor="middle" x="294.79" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">(Observables)</text>
+</g>
+<!-- InverseModel -->
+<g id="node2" class="node">
+<title>InverseModel</title>
+<polygon fill="#f4a261" stroke="#cc5500" points="207.07,-38.8 124.12,-38.8 124.12,-2.8 207.07,-2.8 207.07,-38.8"></polygon>
+<text text-anchor="middle" x="165.59" y="-16.6" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">(Model)^-1</text>
+</g>
+<!-- Outputs&#45;&gt;InverseModel -->
+<g id="edge1" class="edge">
+<title>Outputs-&gt;InverseModel</title>
+<path fill="none" stroke="black" d="M242.79,-20.8C234.34,-20.8 225.58,-20.8 217.14,-20.8"></path>
+<polygon fill="black" stroke="black" points="217.04,-17.3 207.04,-20.8 217.04,-24.3 217.04,-17.3"></polygon>
+</g>
+<!-- Parameters -->
+<g id="node3" class="node">
+<title>Parameters</title>
+<polygon fill="#4682b4" stroke="black" points="88.54,-41.4 -0.18,-41.4 -0.18,-0.2 88.54,-0.2 88.54,-41.4"></polygon>
+<text text-anchor="middle" x="44.18" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Model</text>
+<text text-anchor="middle" x="44.18" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Parameters</text>
+</g>
+<!-- InverseModel&#45;&gt;Parameters -->
+<g id="edge2" class="edge">
+<title>InverseModel-&gt;Parameters</title>
+<path fill="none" stroke="black" d="M124.17,-20.8C115.9,-20.8 107.08,-20.8 98.44,-20.8"></path>
+<polygon fill="black" stroke="black" points="98.43,-17.3 88.43,-20.8 98.43,-24.3 98.43,-17.3"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><p>Model: theoretical descriptions of the relevant processes (DGP)</p></li>
+<li><p>Model parameters (unobservables): inputs for the model</p></li>
+<li><p>Outputs (observables/data): outputs generated by the model</p></li>
+</ul>
 </section>
 <section id="setup-environment" class="level2">
 <h2 class="anchored" data-anchor-id="setup-environment">Setup environment</h2>
@@ -266,7 +385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="rethinking_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="rethinking_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
