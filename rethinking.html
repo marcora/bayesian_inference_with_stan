@@ -70,6 +70,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="rethinking_files/libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
 <script src="rethinking_files/libs/pagedtable-1.1/js/pagedtable.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -81,8 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
-  <li><a href="#the-bayesian-paradigm" id="toc-the-bayesian-paradigm" class="nav-link" data-scroll-target="#the-bayesian-paradigm">The Bayesian paradigm</a></li>
+  <li><a href="#the-bayesian-paradigm" id="toc-the-bayesian-paradigm" class="nav-link active" data-scroll-target="#the-bayesian-paradigm">The Bayesian paradigm</a></li>
   <li><a href="#forward-problem" id="toc-forward-problem" class="nav-link" data-scroll-target="#forward-problem">Forward problem</a></li>
   <li><a href="#inverse-problem" id="toc-inverse-problem" class="nav-link" data-scroll-target="#inverse-problem">Inverse problem</a></li>
   <li><a href="#setup-environment" id="toc-setup-environment" class="nav-link" data-scroll-target="#setup-environment">Setup environment</a></li>
@@ -116,11 +144,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<p><a href="https://youtube.com/playlist?list=PLtjJ_Rt8bTdJEeV0afADtWvqq_t0_iksX">Bayesian Inference with Stan [YouTube playlist]</a></p>
 <p><a href="https://youtu.be/2lgg6OIjd8M">Bayesian Analysis - Simon Mak</a></p>
-</section>
+<p><a href="https://www.elmhurst.edu/blog/thomas-bayes/"><img src="images/clipboard-3229768047.png" class="img-fluid"></a></p>
 <section id="the-bayesian-paradigm" class="level2">
 <h2 class="anchored" data-anchor-id="the-bayesian-paradigm">The Bayesian paradigm</h2>
 <ul>
@@ -136,92 +161,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="672" height="480" viewbox="0.00 0.00 326.41 49.60" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 45.6)">
+<svg width="672" height="480" viewbox="0.00 0.00 287.14 44.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-45.6 322.41,-45.6 322.41,4 -4,4"></polygon>
-<!-- Outputs -->
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 283.14,-40 283.14,4 -4,4"></polygon>
+<!-- Observables -->
 <g id="node1" class="node">
-<title>Outputs</title>
-<polygon fill="#669966" stroke="black" points="318.36,-41.4 214.53,-41.4 214.53,-0.2 318.36,-0.2 318.36,-41.4"></polygon>
-<text text-anchor="middle" x="266.45" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Outputs</text>
-<text text-anchor="middle" x="266.45" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">(Observables)</text>
+<title>Observables</title>
+<polygon fill="#00ee00" stroke="#008b00" points="279.04,-36 200.45,-36 200.45,0 279.04,0 279.04,-36"></polygon>
+<text text-anchor="middle" x="239.74" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">Output</text>
+<text text-anchor="middle" x="239.74" y="-9" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">(Observables)</text>
 </g>
 <!-- Model -->
 <g id="node2" class="node">
 <title>Model</title>
-<polygon fill="#f4a261" stroke="#cc5500" points="178.55,-38.8 124.29,-38.8 124.29,-2.8 178.55,-2.8 178.55,-38.8"></polygon>
-<text text-anchor="middle" x="151.42" y="-16.6" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Model</text>
+<polygon fill="orangered" stroke="#8b2500" points="164.34,-36 110.34,-36 110.34,0 164.34,0 164.34,-36"></polygon>
+<text text-anchor="middle" x="137.34" y="-15" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">Model</text>
 </g>
-<!-- Model&#45;&gt;Outputs -->
+<!-- Model&#45;&gt;Observables -->
 <g id="edge1" class="edge">
-<title>Model-&gt;Outputs</title>
-<path fill="none" stroke="black" d="M178.64,-20.8C186.41,-20.8 195.26,-20.8 204.28,-20.8"></path>
-<polygon fill="black" stroke="black" points="204.47,-24.3 214.47,-20.8 204.47,-17.3 204.47,-24.3"></polygon>
+<title>Model-&gt;Observables</title>
+<path fill="none" stroke="black" d="M164.46,-18C172.31,-18 181.19,-18 190.01,-18"></path>
+<polygon fill="black" stroke="black" points="190.27,-21.5 200.27,-18 190.27,-14.5 190.27,-21.5"></polygon>
 </g>
 <!-- Parameters -->
 <g id="node3" class="node">
 <title>Parameters</title>
-<polygon fill="#4682b4" stroke="black" points="88.54,-41.4 -0.18,-41.4 -0.18,-0.2 88.54,-0.2 88.54,-41.4"></polygon>
-<text text-anchor="middle" x="44.18" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Model</text>
-<text text-anchor="middle" x="44.18" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Parameters</text>
+<polygon fill="#436eee" stroke="#27408b" points="74.52,-36 -0.17,-36 -0.17,0 74.52,0 74.52,-36"></polygon>
+<text text-anchor="middle" x="37.17" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">Input</text>
+<text text-anchor="middle" x="37.17" y="-9" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">(Parameters)</text>
 </g>
 <!-- Parameters&#45;&gt;Model -->
 <g id="edge2" class="edge">
 <title>Parameters-&gt;Model</title>
-<path fill="none" stroke="black" d="M88.59,-20.8C97.11,-20.8 105.97,-20.8 114.22,-20.8"></path>
-<polygon fill="black" stroke="black" points="114.28,-24.3 124.28,-20.8 114.28,-17.3 114.28,-24.3"></polygon>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</section>
-<section id="inverse-problem" class="level2">
-<h2 class="anchored" data-anchor-id="inverse-problem">Inverse problem</h2>
-<div class="cell" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="672" height="480" viewbox="0.00 0.00 354.75 49.60" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 45.6)">
-<title>G</title>
-<polygon fill="white" stroke="transparent" points="-4,4 -4,-45.6 350.75,-45.6 350.75,4 -4,4"></polygon>
-<!-- Outputs -->
-<g id="node1" class="node">
-<title>Outputs</title>
-<polygon fill="#669966" stroke="black" points="346.71,-41.4 242.87,-41.4 242.87,-0.2 346.71,-0.2 346.71,-41.4"></polygon>
-<text text-anchor="middle" x="294.79" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Outputs</text>
-<text text-anchor="middle" x="294.79" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">(Observables)</text>
-</g>
-<!-- InverseModel -->
-<g id="node2" class="node">
-<title>InverseModel</title>
-<polygon fill="#f4a261" stroke="#cc5500" points="207.07,-38.8 124.12,-38.8 124.12,-2.8 207.07,-2.8 207.07,-38.8"></polygon>
-<text text-anchor="middle" x="165.59" y="-16.6" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">(Model)^-1</text>
-</g>
-<!-- Outputs&#45;&gt;InverseModel -->
-<g id="edge1" class="edge">
-<title>Outputs-&gt;InverseModel</title>
-<path fill="none" stroke="black" d="M242.79,-20.8C234.34,-20.8 225.58,-20.8 217.14,-20.8"></path>
-<polygon fill="black" stroke="black" points="217.04,-17.3 207.04,-20.8 217.04,-24.3 217.04,-17.3"></polygon>
-</g>
-<!-- Parameters -->
-<g id="node3" class="node">
-<title>Parameters</title>
-<polygon fill="#4682b4" stroke="black" points="88.54,-41.4 -0.18,-41.4 -0.18,-0.2 88.54,-0.2 88.54,-41.4"></polygon>
-<text text-anchor="middle" x="44.18" y="-25" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Model</text>
-<text text-anchor="middle" x="44.18" y="-8.2" font-family="Helvetica,sans-Serif" font-size="14.00" fill="white">Parameters</text>
-</g>
-<!-- InverseModel&#45;&gt;Parameters -->
-<g id="edge2" class="edge">
-<title>InverseModel-&gt;Parameters</title>
-<path fill="none" stroke="black" d="M124.17,-20.8C115.9,-20.8 107.08,-20.8 98.44,-20.8"></path>
-<polygon fill="black" stroke="black" points="98.43,-17.3 88.43,-20.8 98.43,-24.3 98.43,-17.3"></polygon>
+<path fill="none" stroke="black" d="M74.45,-18C82.82,-18 91.73,-18 100.1,-18"></path>
+<polygon fill="black" stroke="black" points="100.34,-21.5 110.34,-18 100.34,-14.5 100.34,-21.5"></polygon>
 </g>
 </g>
 </svg>
@@ -231,9 +205,74 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ul>
-<li><p>Model: theoretical descriptions of the relevant processes (DGP)</p></li>
-<li><p>Model parameters (unobservables): inputs for the model</p></li>
-<li><p>Outputs (observables/data): outputs generated by the model</p></li>
+<li><strong>Model</strong>: theoretical descriptions of the relevant processes (DGP)</li>
+</ul>
+<p><span class="math display">\[M : \theta \rightarrow y\]</span></p>
+<p><span class="math display">\[y = f(\theta)\]</span></p>
+<ul>
+<li><p><strong>Input</strong>: model parameters (unobservables)</p></li>
+<li><p><strong>Output</strong>: data (observables)</p></li>
+</ul>
+</section>
+<section id="inverse-problem" class="level2">
+<h2 class="anchored" data-anchor-id="inverse-problem">Inverse problem</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="672" height="480" viewbox="0.00 0.00 287.14 44.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
+<title>G</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-40 283.14,-40 283.14,4 -4,4"></polygon>
+<!-- Observables -->
+<g id="node1" class="node">
+<title>Observables</title>
+<polygon fill="#00ee00" stroke="#008b00" points="279.04,-36 200.45,-36 200.45,0 279.04,0 279.04,-36"></polygon>
+<text text-anchor="middle" x="239.74" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">Output</text>
+<text text-anchor="middle" x="239.74" y="-9" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">(Observables)</text>
+</g>
+<!-- InverseModel -->
+<g id="node2" class="node">
+<title>InverseModel</title>
+<polygon fill="orangered" stroke="#8b2500" points="164.34,-36 110.34,-36 110.34,0 164.34,0 164.34,-36"></polygon>
+<text text-anchor="start" x="119.28" y="-16" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">Model</text>
+<text text-anchor="start" x="146.52" y="-16" font-family="Helvetica,sans-Serif" baseline-shift="super" font-size="10.00" fill="white">-1</text>
+</g>
+<!-- Observables&#45;&gt;InverseModel -->
+<g id="edge1" class="edge">
+<title>Observables-&gt;InverseModel</title>
+<path fill="none" stroke="black" d="M200.21,-18C191.82,-18 182.96,-18 174.65,-18"></path>
+<polygon fill="black" stroke="black" points="174.49,-14.5 164.49,-18 174.49,-21.5 174.49,-14.5"></polygon>
+</g>
+<!-- Parameters -->
+<g id="node3" class="node">
+<title>Parameters</title>
+<polygon fill="#436eee" stroke="#27408b" points="74.52,-36 -0.17,-36 -0.17,0 74.52,0 74.52,-36"></polygon>
+<text text-anchor="middle" x="37.17" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">Input</text>
+<text text-anchor="middle" x="37.17" y="-9" font-family="Helvetica,sans-Serif" font-size="10.00" fill="white">(Parameters)</text>
+</g>
+<!-- InverseModel&#45;&gt;Parameters -->
+<g id="edge2" class="edge">
+<title>InverseModel-&gt;Parameters</title>
+<path fill="none" stroke="black" d="M110.29,-18C102.46,-18 93.6,-18 84.85,-18"></path>
+<polygon fill="black" stroke="black" points="84.69,-14.5 74.69,-18 84.69,-21.5 84.69,-14.5"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Inverse Model</strong>:</li>
+</ul>
+<p><span class="math display">\[M^{-1} : y \rightarrow \theta\]</span></p>
+<p><span class="math display">\[\theta = f^{-1}(y)\]</span></p>
+<ul>
+<li><p><strong>Input</strong>: model parameters (unobservables)</p></li>
+<li><p><strong>Output</strong>: data (observables)</p></li>
 </ul>
 </section>
 <section id="setup-environment" class="level2">
@@ -409,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  ctype    en_US.UTF-8
  tz       America/New_York
  date     2025-04-09
- pandoc   3.6.4 @ /opt/homebrew/bin/ (via rmarkdown)
+ pandoc   3.2 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)
  quarto   1.6.43 @ /usr/local/bin/quarto
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -419,11 +458,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  backports              1.5.0       2024-05-23 [1] CRAN (R 4.4.0)
  base64enc              0.1-3       2015-07-28 [1] CRAN (R 4.4.0)
  bayesplot            * 1.11.1      2024-02-15 [1] CRAN (R 4.4.0)
- bayestestR           * 0.15.2      2025-02-07 [1] CRAN (R 4.4.1)
+ bayestestR           * 0.15.2.5    2025-03-21 [1] https://easystats.r-universe.dev (R 4.4.3)
  bridgesampling         1.1-2       2021-04-16 [1] CRAN (R 4.4.0)
  brms                 * 2.22.0      2024-09-23 [1] CRAN (R 4.4.1)
  Brobdingnag            1.2-9       2022-10-19 [1] CRAN (R 4.4.0)
- broom                * 1.0.8       2025-03-28 [1] CRAN (R 4.4.1)
+ broom                * 1.0.7       2024-09-26 [1] CRAN (R 4.4.1)
  broom.mixed          * 0.2.9.6     2024-10-15 [1] CRAN (R 4.4.1)
  checkmate              2.3.2       2024-07-29 [1] CRAN (R 4.4.0)
  cli                    3.6.4       2025-02-13 [1] CRAN (R 4.4.1)
@@ -436,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  crosstalk              1.2.1       2023-11-23 [1] CRAN (R 4.4.0)
  curl                   6.2.2       2025-03-24 [1] CRAN (R 4.4.1)
  data.table             1.17.0      2025-02-22 [1] CRAN (R 4.4.1)
- datawizard           * 1.0.2       2025-03-24 [1] CRAN (R 4.4.1)
+ datawizard           * 1.0.2.1     2025-03-26 [1] https://easystats.r-universe.dev (R 4.4.3)
  digest                 0.6.37      2024-08-19 [1] CRAN (R 4.4.1)
  distributional         0.5.0       2024-09-17 [1] CRAN (R 4.4.1)
  dplyr                * 1.1.4       2023-11-17 [1] CRAN (R 4.4.0)
@@ -469,8 +508,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  httpuv                 1.6.15      2024-03-26 [1] CRAN (R 4.4.0)
  igraph                 2.1.4       2025-01-23 [1] CRAN (R 4.4.1)
  inline                 0.3.21      2025-01-09 [1] CRAN (R 4.4.1)
- insight              * 1.1.0       2025-03-01 [1] CRAN (R 4.4.1)
- jsonlite               2.0.0       2025-03-27 [1] CRAN (R 4.4.1)
+ insight              * 1.1.0.15    2025-03-24 [1] https://easystats.r-universe.dev (R 4.4.3)
+ jsonlite               1.9.1       2025-03-03 [1] CRAN (R 4.4.1)
  knitr                  1.50        2025-03-16 [1] CRAN (R 4.4.1)
  labeling               0.4.3       2023-08-29 [1] CRAN (R 4.4.0)
  labelled               2.14.0      2025-01-08 [1] CRAN (R 4.4.1)
@@ -481,14 +520,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  loo                  * 2.8.0       2024-07-03 [1] CRAN (R 4.4.0)
  lubridate            * 1.9.4       2024-12-08 [1] CRAN (R 4.4.1)
  magrittr               2.0.3       2022-03-30 [1] CRAN (R 4.4.0)
- marginaleffects      * 0.25.1      2025-03-29 [1] CRAN (R 4.4.1)
+ marginaleffects      * 0.25.0      2025-02-01 [1] CRAN (R 4.4.1)
  markdown               2.0         2025-03-23 [1] CRAN (R 4.4.1)
- MASS                   7.3-64      2025-01-04 [2] CRAN (R 4.4.3)
- Matrix               * 1.7-2       2025-01-23 [2] CRAN (R 4.4.3)
+ MASS                   7.3-65      2025-02-28 [2] CRAN (R 4.4.1)
+ Matrix               * 1.7-3       2025-03-11 [2] CRAN (R 4.4.1)
  matrixStats            1.5.0       2025-01-07 [1] CRAN (R 4.4.1)
  mime                   0.13        2025-03-17 [1] CRAN (R 4.4.1)
  miniUI                 0.1.1.1     2018-05-18 [1] CRAN (R 4.4.0)
- modelbased           * 0.10.0      2025-03-10 [1] CRAN (R 4.4.1)
+ modelbased           * 0.10.0.7    2025-03-23 [1] https://easystats.r-universe.dev (R 4.4.3)
  modelsummary         * 2.3.0       2025-02-02 [1] CRAN (R 4.4.1)
  mosaic               * 1.9.1       2024-02-23 [1] CRAN (R 4.4.0)
  mosaicCore             0.9.4.0     2023-11-05 [1] CRAN (R 4.4.0)
@@ -498,9 +537,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  mvtnorm                1.3-3       2025-01-10 [1] CRAN (R 4.4.1)
  nlme                   3.1-167     2025-01-27 [2] CRAN (R 4.4.3)
  parallelly             1.43.0      2025-03-24 [1] CRAN (R 4.4.1)
- parameters           * 0.24.2      2025-03-04 [1] CRAN (R 4.4.1)
- performance          * 0.13.0      2025-01-15 [1] CRAN (R 4.4.1)
- pillar                 1.10.2      2025-04-05 [1] CRAN (R 4.4.1)
+ parameters           * 0.24.2.4    2025-03-21 [1] https://easystats.r-universe.dev (R 4.4.3)
+ performance          * 0.13.0.3    2025-03-25 [1] https://easystats.r-universe.dev (R 4.4.3)
+ pillar                 1.10.1      2025-01-07 [1] CRAN (R 4.4.1)
  pkgbuild               1.4.7       2025-03-24 [1] CRAN (R 4.4.1)
  pkgconfig              2.0.3       2019-09-22 [1] CRAN (R 4.4.0)
  plyr                   1.8.9       2023-10-02 [1] CRAN (R 4.4.0)
@@ -509,14 +548,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  promises               1.3.2       2024-11-28 [1] CRAN (R 4.4.1)
  ps                     1.9.0       2025-02-18 [1] CRAN (R 4.4.1)
  purrr                * 1.0.4       2025-02-05 [1] CRAN (R 4.4.1)
- QuickJSR               1.7.0       2025-03-31 [1] CRAN (R 4.4.1)
+ QuickJSR               1.6.0       2025-02-26 [1] CRAN (R 4.4.1)
  R6                     2.6.1       2025-02-15 [1] CRAN (R 4.4.1)
  Rcpp                 * 1.0.14      2025-01-12 [1] CRAN (R 4.4.1)
  RcppParallel           5.1.10      2025-01-24 [1] CRAN (R 4.4.1)
  readr                * 2.1.5       2024-01-10 [1] CRAN (R 4.4.0)
  report               * 0.6.1       2025-02-07 [1] CRAN (R 4.4.1)
  reshape2               1.4.4       2020-04-09 [1] CRAN (R 4.4.0)
- rethinking           * 2.42        2025-03-19 [1] Github (rmcelreath/rethinking@ac1b3b2)
+ rethinking           * 2.42        2025-03-20 [1] Github (rmcelreath/rethinking@ac1b3b2)
  rlang                  1.1.5       2025-01-17 [1] CRAN (R 4.4.1)
  rmarkdown              2.29        2024-11-04 [1] CRAN (R 4.4.1)
  rstan                * 2.35.0.9000 2024-06-06 [1] https://stan-dev.r-universe.dev (R 4.4.0)
@@ -532,7 +571,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  shinystan            * 2.6.0       2022-03-03 [1] CRAN (R 4.4.0)
  shinythemes            1.2.0       2021-01-25 [1] CRAN (R 4.4.0)
  StanHeaders          * 2.35.0.9000 2024-06-06 [1] https://stan-dev.r-universe.dev (R 4.4.0)
- stringi                1.8.7       2025-03-27 [1] CRAN (R 4.4.1)
+ stringi                1.8.4       2024-05-06 [1] CRAN (R 4.4.0)
  stringr              * 1.5.1       2023-11-14 [1] CRAN (R 4.4.0)
  survival               3.8-3       2024-12-17 [2] CRAN (R 4.4.3)
  svUnit                 1.0.6       2021-04-19 [1] CRAN (R 4.4.0)
@@ -542,7 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  threejs                0.3.3       2020-01-21 [1] CRAN (R 4.4.0)
  tibble               * 3.2.1       2023-03-20 [1] CRAN (R 4.4.0)
  tidybayes            * 3.0.7       2024-09-15 [1] CRAN (R 4.4.1)
- tidybayes.rethinking * 3.0.0       2025-03-19 [1] Github (mjskay/tidybayes.rethinking@867520f)
+ tidybayes.rethinking * 3.0.0       2025-03-20 [1] Github (mjskay/tidybayes.rethinking@867520f)
  tidyr                * 1.3.1       2024-01-24 [1] CRAN (R 4.4.0)
  tidyselect             1.2.1       2024-03-11 [1] CRAN (R 4.4.0)
  tidyverse            * 2.0.0       2023-02-22 [1] CRAN (R 4.4.0)
@@ -551,7 +590,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  V8                     6.0.3       2025-03-26 [1] CRAN (R 4.4.1)
  vctrs                  0.6.5       2023-12-01 [1] CRAN (R 4.4.0)
  withr                  3.0.2       2024-10-28 [1] CRAN (R 4.4.1)
- xfun                   0.52        2025-04-02 [1] CRAN (R 4.4.1)
+ xfun                   0.51        2025-02-19 [1] CRAN (R 4.4.1)
  xtable                 1.8-4       2019-04-21 [1] CRAN (R 4.4.0)
  xts                    0.14.1      2024-10-15 [1] CRAN (R 4.4.1)
  yaml                   2.3.10      2024-07-26 [1] CRAN (R 4.4.0)
