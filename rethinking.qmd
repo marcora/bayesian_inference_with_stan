@@ -10,6 +10,19 @@ format:
 
 [![](images/clipboard-3229768047.png)](https://www.elmhurst.edu/blog/thomas-bayes/)
 
+|  |  |
+|----|----|
+| **observations** | $y$ |
+| **parameters** | $\theta$ |
+| **prior** | $p(\theta)$ |
+| **likelihood** | $p(y \mid \theta)$ |
+| **joint** | $p(\theta, y) = p(\theta) \cdot p(y \mid \theta)$ |
+| **posterior** | $p(\theta \mid y) = \frac{p(\theta) \cdot p(y \mid \theta)}{\int_{\Theta} p(\theta) \cdot p(y \mid \theta)}$ |
+
+: **Terminology of Bayesian data analysis**
+
+![](images/clipboard-777378815.png)
+
 ## The Bayesian paradigm
 
 -   Forward problem
