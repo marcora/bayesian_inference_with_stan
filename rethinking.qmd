@@ -6,8 +6,6 @@ format:
     df-print: paged
 ---
 
-[Bayesian Analysis - Simon Mak](https://youtu.be/2lgg6OIjd8M)
-
 [![](images/clipboard-3229768047.png)](https://www.elmhurst.edu/blog/thomas-bayes/)
 
 |  |  |
@@ -91,7 +89,7 @@ library(easystats)
 library(rstan)
 library(cmdstanr)
 library(rethinking)
-library(brms)
+#library(brms)
 library(posterior)
 library(bayesplot)
 library(loo)
@@ -162,7 +160,7 @@ f <- alist(
 ## Condition statistical model
 
 ```{r}
-fit <- quap(f, data = list(y = c(0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1)))
+fit <- ulam(f, data = list(y = c(0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1)))
 ```
 
 ## Summarize posterior
@@ -179,7 +177,9 @@ fit %>% tidy_draws() %>% median_qi()
 fit %>% tidy_draws() %>% ggplot(aes(x = pi)) + stat_halfeye()
 ```
 
-\
+## From posterior to meaning
+
+XXX
 
 ## Print environment
 
